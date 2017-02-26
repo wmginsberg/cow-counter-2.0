@@ -1,0 +1,67 @@
+<!-- Load the Polymer.Element base class -->
+<link rel="import" href="bower_components/polymer/polymer.html">
+<link rel="import" href="bower_components/polymer/polymer-element.html">
+
+<dom-module id="my-counter">
+
+  <template>
+    <style>
+      :host {
+        display: block;
+        box-sizing: border-box;
+        border: 1px solid red;
+        margin-top: 10px;
+        padding: 0px 5px;
+      }
+      #cow {
+        max-width: 50px;
+        max-height: 50px;
+      }
+    </style>
+    <p> [[foo]] <slot></slot></p>
+
+    <img id="cow" src="images/cows.png">
+    <p> Counter: [[count]] </p>
+  </template>
+
+<script>
+class MyCounter extends Polymer.Element {
+  static get is() { return 'my-counter'; }
+  static get properties() { 
+    return { 
+      foo: {
+        type: String,
+        value: 'Click the cow!'
+      },
+      count: {
+        type: Number, 
+        value: 0
+      }
+    }
+  }
+  static get observers() { return [ /* observer descriptors */ ] }
+  constructor() {
+    super();
+    
+  }
+  connectedCallback() {
+    super.connectedCallback();
+    
+  }
+  ready() {
+    this.addEventListener('click',(e)=>this.handleClick(e));
+    super.ready();
+    console.log('ready');
+  }
+  handleClick(e) {
+    console.log( "MOO!" );
+    this.count += 1;
+  }
+  
+}
+
+// Register custom element definition using standard platform API
+customElements.define(MyCounter.is, MyCounter);
+</script>
+
+</dom-module>
